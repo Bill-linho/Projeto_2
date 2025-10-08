@@ -1,0 +1,22 @@
+###
+GET http://localhost:3000/usuarios
+
+###
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+    "nome":"Hug",
+    "senha":"123",
+    "email":"hug@gmail.com",
+    "telefone":"(48) 9 9999-9999"
+}
+
+###
+
+POST http://localhost:3000/categoria
+Content-Type: application/json
+
+{
+    "nome":"Doce"
+}
