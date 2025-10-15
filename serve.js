@@ -52,6 +52,40 @@ server.post('/categoria',async (req,reply) =>{
     }
 })
 
+server.delete('/usuarios/:id', async (req,reply) =>{
+    const id = req.params.id
+    try{
+        await pool.query('DELETE FROM USUARIOS WHERE id=$1',[id])
+        reply.send({message:'Usuario foi F'})
+    }catch(feio){
+        reply.status(500).send({ error: feio.message })
+    }
+})
+
+server.put('/usuarios/:id',async (req,reply) =>{
+    const {nome,senha,email,telefone} = req.body
+    const id = req.params.id
+    try{
+        const resultado = await pool.query('UPDATE USUARIOS SET NOME=$1, SENHA=$2, EMAIL=$3, TELEFONE=$4 WHERE ID=$5 RETURNING *',
+            [nome, senha, email, telefone, id])
+        reply.status(200).send(resultado.rows)
+    }catch(e){
+        reply.status(500).send({ error: e.message })
+    }
+})
+
+server.put('/categoria/:id',async (req,reply) =>{
+    const {nome} = req.body
+    const id = req.params.id
+    try{
+        const resultado = await pool.query('UPDATE CATEGORIA SET NOME=$1 WHERE ID=$2 RETURNING *',
+            [nome, id])
+        reply.status(200).send(resultado.rows)
+    }catch(e){
+        reply.status(500).send({ error: e.message })
+    }
+})
+
 server.listen({
     port: 3000,
     host: '0.0.0.0'

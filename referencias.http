@@ -22,5 +22,30 @@ POST http://localhost:3000/categoria
 Content-Type: application/json
 
 {
-    "nome":"Doce"
+    "nome":"Salgado"
+}
+
+###
+
+DELETE http://localhost:3000/usuarios/1
+
+###
+
+PUT http://localhost:3000/usuarios/2
+Content-Type: application/json
+
+{
+    "nome":"Cuscuz",
+    "senha":"123",
+    "email":"hug@gmail.com",
+    "telefone":"(48) 9 9999-9999"
+}
+
+###
+
+PUT  http://localhost:3000/categoria/1
+Content-Type: application/json
+
+{
+    "nome":"Amargo"
 }
