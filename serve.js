@@ -33,6 +33,15 @@ server.post('/usuarios',async (req,reply) =>{
     }
 })
 
+server.get('/categoria', async (req,reply) => {
+    try{
+        const resultado = await pool.query('SELECT * FROM CATEGORIA')
+        reply.status(200).send(resultado.rows)
+    }catch(deuRuim){
+        reply.status(500).send({ error: deuRuim.message })
+    }
+})
+
 server.post('/categoria',async (req,reply) =>{
     const {nome} = req.body
     try{
