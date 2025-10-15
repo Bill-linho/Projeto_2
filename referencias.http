@@ -14,19 +14,6 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/categoria
-
-###
-
-POST http://localhost:3000/categoria
-Content-Type: application/json
-
-{
-    "nome":"Salgado"
-}
-
-###
-
 DELETE http://localhost:3000/usuarios/1
 
 ###
@@ -41,11 +28,24 @@ Content-Type: application/json
     "telefone":"(48) 9 9999-9999"
 }
 
-###
+### CATEGORIAS
 
 PUT  http://localhost:3000/categoria/1
 Content-Type: application/json
 
 {
-    "nome":"Amargo"
+    "nome":"Doce"
+}
+
+###
+
+GET http://localhost:3000/categoria
+
+###
+
+POST http://localhost:3000/categoria
+Content-Type: application/json
+
+{
+    "nome":"Salgado"
 }
