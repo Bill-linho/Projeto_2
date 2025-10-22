@@ -63,11 +63,11 @@ server.delete('/usuarios/:id', async (req,reply) =>{
 })
 
 server.put('/usuarios/:id',async (req,reply) =>{
-    const {nome,senha,email,telefone} = req.body
+    const {nome,senha,email,telefone, ativo} = req.body
     const id = req.params.id
     try{
-        const resultado = await pool.query('UPDATE USUARIOS SET NOME=$1, SENHA=$2, EMAIL=$3, TELEFONE=$4 WHERE ID=$5 RETURNING *',
-            [nome, senha, email, telefone, id])
+        const resultado = await pool.query('UPDATE USUARIOS SET NOME=$1, SENHA=$2, EMAIL=$3, TELEFONE=$4, ativo=$6 WHERE ID=$5 RETURNING *',
+            [nome, senha, email, telefone, id, ativo])
         reply.status(200).send(resultado.rows)
     }catch(e){
         reply.status(500).send({ error: e.message })

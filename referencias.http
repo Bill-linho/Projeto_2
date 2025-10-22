@@ -25,7 +25,8 @@ Content-Type: application/json
     "nome":"Cuscuz",
     "senha":"123",
     "email":"hug@gmail.com",
-    "telefone":"(48) 9 9999-9999"
+    "telefone":"(48) 9 9999-9999",
+    "ativo":false
 }
 
 ### CATEGORIAS
