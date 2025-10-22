@@ -15,6 +15,13 @@ const pool = new Pool({
 const server = Fastify()
 
 server.get('/usuarios', async (req,reply) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset =(page - 1) * limit;
+    const allowedOrder = ['id','nome','email','telefone','ativo','data_criacao']
+    const sort = allowedOrder.includes(req.query.sort) ? req.query.sort : 'id';
+    const order = req.query.order === 'desc' ? 'DESC' : "ASC"
+    
     try{
         const resultado = await pool.query('SELECT * FROM usuarios')
         reply.status(200).send(resultado.rows)
