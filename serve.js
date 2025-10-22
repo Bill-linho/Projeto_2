@@ -86,6 +86,23 @@ server.put('/categoria/:id',async (req,reply) =>{
     }
 })
 
+server.get('/receitas',async (req, reply) =>{
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.page) || 10;
+    const offset =(page - 1) * limit;
+
+    const allowedOrder = ['id','name']
+    const sort = allowedOrder.includes(req.query.sort) ? req.query.sort : 'id'
+    const order = req.query.order === 'desc' ? 'DESC' : "ASC"
+
+    try{
+        const resultado = await pool.query(`SELECT * FROM RECEITAS ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`)
+        reply.send(resultado.rows)
+    }catch(pao){
+        reply.status(500).send({ error: pao.message})
+    }
+})
+
 server.listen({
     port: 3000,
     host: '0.0.0.0'
