@@ -8,7 +8,7 @@ Content-Type: application/json
 {
     "nome":"Hug",
     "senha":"123",
-    "email":"hug@gmail.com",
+    "email":"hug222234@g2443525m32a2il.com",
     "telefone":"(48) 9 9999-9999"
 }
 
@@ -58,3 +58,18 @@ GET http://localhost:3000/receitas?page=1&limit=10
 ###
 
 GET http://localhost:3000/receitas?page=2&limit=5
+
+###
+
+POST http://localhost:3000/receitas
+Content-Type: application/json
+
+{
+  "receita": "Salgado",
+  "modo_preparo": "Caça um javali",
+  "ingredientes": "blablablablablablabla",
+  "tempo_preparo_minutos": 8766,
+  "porcoes": 1,
+  "usuario_id": 4,
+  "categoria_id": 3
+}

@@ -88,7 +88,7 @@ server.put('/categoria/:id',async (req,reply) =>{
 
 server.get('/receitas',async (req, reply) =>{
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.page) || 10;
+    const limit = parseInt(req.query.limit) || 10;
     const offset =(page - 1) * limit;
 
     const allowedOrder = ['id','name']
@@ -102,6 +102,20 @@ server.get('/receitas',async (req, reply) =>{
         reply.status(500).send({ error: pao.message})
     }
 })
+
+server.post('/receitas', async (req,reply) => {
+    const {receita, modo_preparo, ingredientes, tempo_preparo_minutos, porcoes, usuario_id, categoria_id} = req.body
+    try{
+        const resultado = await pool.query(
+            `INSERT INTO RECEITAS (receita, modo_preparo, ingredientes, tempo_preparo_minutos, porcoes, usuario_id, categoria_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+            [receita, modo_preparo, ingredientes, tempo_preparo_minutos, porcoes, usuario_id, categoria_id] 
+        );
+        reply.status(200).send(resultado.rows[0])
+    }catch(deuRuim){
+        reply.status(500).send({ error: deuRuim.message })
+    }
+})
+
 
 server.listen({
     port: 3000,
