@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/usuarios
+GET http://localhost:3000/usuarios?page=2&limit=5
 
 ###
 POST http://localhost:3000/usuarios
@@ -67,7 +67,7 @@ Content-Type: application/json
 {
   "receita": "Salgado",
   "modo_preparo": "Caça um javali",
-  "ingredientes": "blablablablablablabdwadwadwala",
+  "ingredientes": "blablablab323l32ablablabdwadwadwala",
   "tempo_preparo_minutos": 8766,
   "porcoes": 1,
   "usuario_id": 4,
