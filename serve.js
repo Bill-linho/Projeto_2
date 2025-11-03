@@ -1,4 +1,3 @@
-import { trace } from 'console'
 import Fastify from 'fastify'
 import pkg from 'pg'
 import cors from '@fastify/cors'
@@ -101,22 +100,25 @@ server.put('/categoria/:id',async (req,reply) =>{
     }
 })
 
-server.get('/receitas',async (req, reply) =>{
+server.get('/receitas', async (req, reply) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const offset =(page - 1) * limit;
-
-    const allowedOrder = ['id','name']
-    const sort = allowedOrder.includes(req.query.sort) ? req.query.sort : 'id'
-    const order = req.query.order === 'desc' ? 'DESC' : "ASC"
-
-    try{
-        const resultado = await pool.query(`SELECT * FROM RECEITAS ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`)
-        reply.send({data: resultado.rows, count: resultado.rows.length})
-    }catch(pao){
-        reply.status(500).send({ error: pao.message})
+    const offset = (page - 1) * limit;
+  
+    const allowedOrder = ['id', 'nome'];
+    const sort = allowedOrder.includes(req.query.sort) ? req.query.sort : 'id';
+    const order = req.query.order === 'desc' ? 'DESC' : 'ASC';
+  
+    try {
+      const resultado = await pool.query(
+        `SELECT * FROM RECEITAS ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`
+      );
+      reply.status(200).send({ data: resultado.rows, count: resultado.rows.length });
+    } catch (e) {
+      console.error('Erro ao buscar receitas:', e.message);
+      reply.status(500).send({ error: e.message });
     }
-})
+  });
 
 server.post('/receitas', async (req,reply) => {
     const {receita, modo_preparo, ingredientes, tempo_preparo_minutos, porcoes, usuario_id, categoria_id} = req.body
